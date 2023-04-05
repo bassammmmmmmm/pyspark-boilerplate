@@ -1,81 +1,70 @@
-# PySpark BoilderPlate
+## PYSPARK BOILERPLATE
 
-## Prerequisites
-Before you begin, make sure you have the following:
+## Introduction:
+    This project is designed to demonstrate how to build and deploy an ETL pipeline on Databricks using Python. The pipeline reads data from Azure Data Lake Storage (ADLS), performs some transformations using PySpark, and then writes the transformed data back to ADLS.
 
-A Databricks workspace
-An Azure Data Lake Storage Gen1 or Gen2 account with the necessary permissions to read and write data
-An ADLS configuration file that contains the account name, tenant ID, client ID, and client secret
-## Step 1: Create a new Databricks notebook
-Open the Databricks workspace and click on the "Workspace" button in the left-hand sidebar.
-
-Navigate to the folder where you want to create the new notebook.
-
-Click on the "Create" button and select "Notebook".
-
-Give the notebook a name and select the appropriate language (Python 3).
-
-Click "Create".
-
-## Step 2: Upload the project files
-1.  Download the PySpark ETL pipeline project files from the Git repository.
-
-2. In the Databricks workspace, navigate to the folder where you want to upload the project files.
-
-3. Click on the "Import" button and select "File".
-
-4. Choose the project files that you downloaded and click "Open".
-
-5. Wait for the files to upload.
-
-## Step 3: Install Python dependencies
-1. In the Databricks notebook, create a new cell.
-
-2. Run the following command to install the Python dependencies required for the project:
+## Project Structure:
+The project has the following directory structure:
 
 ```
-%pip install -r /dbfs/path/to/requirements.txt
-```
-
-Replace /dbfs/path/to/requirements.txt with the actual path to the requirements.txt file in your Databricks workspace.
-
-3. Wait for the dependencies to install.
-
-## Step 4: Configure the ADLS connection
-1. In the Databricks workspace, navigate to the config folder in the project files.
-
-2. Open the adls_config.json file.
-
-3. Replace the placeholder values with the actual values for your ADLS account:
-
-```
-{
-  "account_name": "<ADLS_ACCOUNT_NAME>",
-  "tenant_id": "<TENANT_ID>",
-  "client_id": "<CLIENT_ID>",
-  "client_secret": "<CLIENT_SECRET>"
-}
-```
-4. Save the file.
-
-## Step 5: Run the PySpark job files
-1. In the Databricks notebook, create a new cell.
-
-2. Run the following command to submit the etl_job.py PySpark job file:
+└───etl_pipeline
+    │   __init__.py
+    │
+    ├───config
+    │       adls_config.json
+    │       spark_config.json
+    │
+    ├───jobs
+    │   │   etl_job.py
+    │   │   transform.py
+    │   │   __init__.py
+    │
+    ├───schema
+    │       __init__.py
+    │
+    └───tests
+            __init__.py
 
 ```
-%run /dbfs/path/to/etl_job.py
-```
+1. etl_pipeline: This is the main directory that contains the pipeline code.
+2. config: This directory contains the configuration files for the pipeline.
+3. jobs: This directory contains the ETL job code that performs the data transformation.
+4. schema: This directory contains the schema for the data to be processed.
+5. tests: This directory contains the unit tests for the ETL job.
 
-Replace /dbfs/path/to/etl_job.py with the actual path to the etl_job.py file in your Databricks workspace.
+## Setting Up the Project:
 
-3. Wait for the job to complete.
+    To use this project, you will need to follow the steps below:
 
-## Step 6: Verify the results
-1. In the Databricks workspace, navigate to the data/output folder in the project files.
+    1. Clone the project from GitHub to your Databricks from REPOS in Databricks UI.
+    2. Set the configurations for ADLS and Spark in their respective config files.
+    3. Connect the workflow task to jobs/etl_jobs.py.
 
-2. Verify that the output data files were generated successfully.
 
-3. Optionally, you can create additional PySpark job files to perform data transformations, data validation, and data loading.
+## Configuring the Project:
+Before running the ETL job, you will need to configure the project by setting the necessary parameters in the configuration files.
 
-That's it! By following these steps, you can use the PySpark ETL pipeline project in Databricks and read/write files to ADLS. Remember to update the ADLS configuration file with the appropriate values for your ADLS account and ensure that the required Python dependencies are installed.
+* adls_config.json: This file contains the configuration parameters for connecting to Azure Data Lake Storage. You will need to set the following parameters:
+
+    * STORAGE_URL: The URL of the storage account as 
+        ```
+            "STORAGE_URL":"fs.azure.account.key.boilerplatestorageacc.dfs.core.windows.net"
+        ```
+    * CONTAINER: The path of the container as 
+        ```
+            "CONTAINER":"abfss://boilerplate@boilerplatestorageacc.dfs.core.windows.net"
+        ```
+* spark_config.json: This file contains the configuration parameters for spark. You will need to set the following parameters:
+    * SCOPE_NAME : Name of the scope that you created for the key
+        ```
+            "SCOPE_NAME":"boilerplate"
+        ```
+    * SCOPE_KEY : Name of the key
+        ```
+            "SCOPE_KEY":"boilerplate-storage-key"
+        ```
+
+* etl_job.py: This file contains the PySpark code for the ETL job. You will need to set the following parameters:
+
+    INPUT_FILENAME: The name of the input file to read from ADLS.
+    OUTPUT_FILENAME: The name of the output file to write to ADLS.

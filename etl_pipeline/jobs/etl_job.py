@@ -2,8 +2,7 @@ import json
 from typing import Dict
 
 from pyspark.sql import DataFrame
-
-from .transform import transform
+from transform import transform
 
 
 def load_config_file(file_name: str) -> Dict:
@@ -51,11 +50,12 @@ def run():
         SPARK_CONF["SCOPE_NAME"], SPARK_CONF["SCOPE_KEY"], ADLS_CONF["STORAGE_URL"]
     )
 
-    FILENAME = "/input/titanic.csv"
+    INPUT_FILENAME = "/input/titanic.csv"
+    OUTPUT_FILENAME = "/output/"
 
-    df = extract(ADLS_CONF["CONTAINER"], FILENAME)
+    df = extract(ADLS_CONF["CONTAINER"], INPUT_FILENAME)
     df = transform(df)
-    load(df, ADLS_CONF["CONTAINER"], "/output/")
+    load(df, ADLS_CONF["CONTAINER"], OUTPUT_FILENAME)
 
 
 if __name__ == "__main__":
