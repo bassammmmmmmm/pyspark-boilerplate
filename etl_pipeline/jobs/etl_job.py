@@ -22,8 +22,6 @@ def load_config_file(file_name: str) -> Dict:
 
 
 def set_spark_conf(scope_name: str, scope_key: str, storage_url: str) -> bool:
-    # SCOPE = dbutils.secrets.get(scope="boilerplate", key="boilerplate-storage-key")
-    # STORAGE = "fs.azure.account.key.boilerplatestorageacc.dfs.core.windows.net"
     SCOPE = dbutils.secrets.get(scope=scope_name, key=scope_key)
     STORAGE = storage_url
     spark.conf.set(STORAGE, SCOPE)
