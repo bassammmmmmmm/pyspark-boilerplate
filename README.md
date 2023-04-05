@@ -1,7 +1,7 @@
 ## PYSPARK BOILERPLATE
 
 ## Introduction:
-    This project is designed to demonstrate how to build and deploy an ETL pipeline on Databricks using Python. The pipeline reads data from Azure Data Lake Storage (ADLS), performs some transformations using PySpark, and then writes the transformed data back to ADLS.
+This project is designed to demonstrate how to build and deploy an ETL pipeline on Databricks using Python. The pipeline reads data from Azure Data Lake Storage (ADLS), performs some transformations using PySpark, and then writes the transformed data back to ADLS.
 
 ## Project Structure:
 The project has the following directory structure:
@@ -34,11 +34,11 @@ The project has the following directory structure:
 
 ## Setting Up the Project:
 
-    To use this project, you will need to follow the steps below:
+To use this project, you will need to follow the steps below:
 
-    1. Clone the project from GitHub to your Databricks from REPOS in Databricks UI.
-    2. Set the configurations for ADLS and Spark in their respective config files.
-    3. Connect the workflow task to jobs/etl_jobs.py.
+1. Clone the project from GitHub to your Databricks from REPOS in Databricks UI.
+2. Set the configurations for ADLS and Spark in their respective config files.
+3. Connect the workflow task to jobs/etl_jobs.py.
 
 
 ## Configuring the Project:
