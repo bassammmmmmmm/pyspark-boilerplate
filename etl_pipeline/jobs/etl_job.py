@@ -36,15 +36,15 @@ def transform(df):
     return df
 
 
-def load(df, container):
-    df.write.format("csv").save(container + "/output/", mode="overwrite")
+def load(df, container, path):
+    df.write.format("csv").save(container + path, mode="overwrite")
 
 
 def run():
 
     ADLS_CONF, SPARK_CONF = load_config_file(
-        "config/adls_config.json"
-    ), load_config_file("config/spark_config.json")
+        "../config/adls_config.json"
+    ), load_config_file("../config/spark_config.json")
 
     set_spark_conf(
         SPARK_CONF["SCOPE_NAME"], SPARK_CONF["SCOPE_KEY"], ADLS_CONF["STORAGE_URL"]
@@ -54,7 +54,7 @@ def run():
 
     df = extract(ADLS_CONF["CONTAINER"], FILENAME)
     df = transform(df)
-    load(df)
+    load(df,ADLS_CONF["CONTAINER"],"/output/")
 
 
 if __name__ == "__main__":
