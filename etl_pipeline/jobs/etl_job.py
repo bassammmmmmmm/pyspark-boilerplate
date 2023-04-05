@@ -1,6 +1,10 @@
 import json
 from typing import Dict
 
+from pyspark.sql import DataFrame
+
+from .transform import transform
+
 
 def load_config_file(file_name: str) -> Dict:
     """
@@ -18,26 +22,23 @@ def load_config_file(file_name: str) -> Dict:
         raise FileNotFoundError(f"{file_name} Not found")
 
 
-def set_spark_conf(scope_name: str, scope_key: str, storage_url: str):
+def set_spark_conf(scope_name: str, scope_key: str, storage_url: str) -> bool:
     # SCOPE = dbutils.secrets.get(scope="boilerplate", key="boilerplate-storage-key")
     # STORAGE = "fs.azure.account.key.boilerplatestorageacc.dfs.core.windows.net"
     SCOPE = dbutils.secrets.get(scope=scope_name, key=scope_key)
     STORAGE = storage_url
     spark.conf.set(STORAGE, SCOPE)
+    return True
 
 
-def extract(container, filename):
+def extract(container: str, filename: str) -> DataFrame:
     df_pyspark = spark.read.csv(container + filename, header=True, inferSchema=True)
     return df_pyspark
 
 
-def transform(df):
-    df = df.filter("age>20")
-    return df
-
-
-def load(df, container, path):
+def load(df: DataFrame, container: str, path: str) -> bool:
     df.write.format("csv").save(container + path, mode="overwrite")
+    return True
 
 
 def run():
@@ -54,7 +55,7 @@ def run():
 
     df = extract(ADLS_CONF["CONTAINER"], FILENAME)
     df = transform(df)
-    load(df,ADLS_CONF["CONTAINER"],"/output/")
+    load(df, ADLS_CONF["CONTAINER"], "/output/")
 
 
 if __name__ == "__main__":
