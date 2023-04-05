@@ -1,0 +1,4 @@
+{
+    "STORAGE_URL":"fs.azure.account.key.boilerplatestorageacc.dfs.core.windows.net",
+    "CONTAINER":"abfss://boilerplate@boilerplatestorageacc.dfs.core.windows.net"
+}
