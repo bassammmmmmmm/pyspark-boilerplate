@@ -55,11 +55,11 @@ Before running the ETL job, you will need to configure the project by setting th
             "CONTAINER":"abfss://boilerplate@boilerplatestorageacc.dfs.core.windows.net"
         ```
 * spark_config.json: This file contains the configuration parameters for spark. You will need to set the following parameters:
-    * SCOPE_NAME : Name of the scope that you created for the key
+    * SCOPE_NAME : Databricks scope name
         ```
             "SCOPE_NAME":"boilerplate"
         ```
-    * SCOPE_KEY : Name of the key
+    * SCOPE_KEY : Azure key vault key name
         ```
             "SCOPE_KEY":"boilerplate-storage-key"
         ```
